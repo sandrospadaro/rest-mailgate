@@ -1,23 +1,4 @@
 #!/usr/bin/env python3
-#
-#   telegram-mailgate is a software to send messages via telegram.
-#
-#	This file is part of the telegram-mailgate source code.
-#
-#	telegram-mailgate is free software: you can redistribute it and/or modify
-#	it under the terms of the GNU General Public License as published by
-#	the Free Software Foundation, either version 3 of the License, or
-#	(at your option) any later version.
-#
-#	telegram-mailgate source code is distributed in the hope that it will be
-#   useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#	GNU General Public License for more details.
-#
-#	You should have received a copy of the GNU General Public License
-#	along with telegram-mailgate source code. If not,
-#   see <http://www.gnu.org/licenses/>.
-#
 
 import sys
 import logging.config
@@ -25,7 +6,6 @@ import argparse
 from configparser import ConfigParser
 import email
 import platform
-import telegram
 
 if __name__ == '__main__':
     exit_code = 0
@@ -64,7 +44,6 @@ if __name__ == '__main__':
 
     logger.debug('%s: Validating API key', args.queue_id)
     api_key = cfg['api']['key']
-    bot = telegram.bot.Bot(api_key)
 
     logger.debug('%s: Reading message content', args.queue_id)
     raw_content = sys.stdin.read()
@@ -83,6 +62,4 @@ if __name__ == '__main__':
         if args.simple_header:
             sender = getattr(args, 'from') or mail['From']
             msg = 'New mail on {} from {}'.format(platform.node(), sender)
-            bot.sendMessage(chat_id=chat_id, text=msg)
-        bot.sendMessage(chat_id=chat_id, text=content)
     exit(exit_code)
