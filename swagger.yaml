@@ -1,0 +1,67 @@
+swagger: "2.0"
+info:
+  description: "This is a simple API to accept message from postfix."
+  version: "1.0.0"
+  title: "Postfix Restgate API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "sandro.spadaro@gmail.com"
+  license:
+    name: "LGPL-3.0"
+    url: "https://opensource.org/licenses/lgpl-3.0.html"
+host: "sandrospadaro.altervista.org"
+basePath: "/v2"
+tags:
+- name: "message"
+  description: "Everything about your Pets"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /message:
+    post:
+      tags:
+      - "message"
+      summary: "Send a new message"
+      description: ""
+      operationId: "sendMessage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Message object to send"
+        required: true
+        schema:
+          $ref: "#/definitions/Message"
+      responses:
+        405:
+          description: "Invalid input"
+definitions:
+  Message:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      from:
+        type: "string"
+        description: "from"
+      to:
+        type: "string"
+        description: "to"
+      subject:
+        type: "string"
+        description: "subject"
+      text:
+        type: "string"
+        description: "text"
+  
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
